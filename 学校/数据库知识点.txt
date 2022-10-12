@@ -1,0 +1,114 @@
+。1.主流的的数据库
+	MySQL Oracle SQLserver
+2.安装和卸载数据库
+	卸载:
+		首先删除C:\Program Files的MySQL、C:\Program Files (x86)MySQL、C:\ProgramData
+		之后打开设置找到应用和功能，卸载所有有关于MySQL
+		最后按windows+r打开运行命令窗口里面输入regedit进入注册表
+		找到HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Eventlog\Application\MySQL文件夹删除
+		删除HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Services\Eventlog\Application\MySQL文件夹
+		删除HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Application\MySQL的文件夹
+3.-h:查找当前主机的ip地址、-u:数据库用户名、-p数据库密码
+4.创建数据库
+	create database 数据库名;
+5.删除数据库
+	drop database 数据库名;
+6.创建数据表
+	create table 数据表名(
+		字段一 数据类型,
+		字段二 数据类型,
+		字段三 数据类型,
+		......
+	);
+7.常用的数据类型
+  整形  不可变字符串 可变字符串 浮点型 日期类型 时间类型 日期时间类型
+	int()、char()、varchar()、double()、date()、time()、datetime()
+8.常用的约束
+	必须会背：
+		主键约束：primary key每张表只能存在一个主键,主键不能重复,不能为空
+		自增长约束：auto_increment每张表只能存在一个自增长,自增长必须与主键一起使用,默认情况下,起始值为1,增量为1
+		唯一约束：unique数据不能重复,可以为空值null,每张表中可以存在多个唯一约束
+		非空约束：null空约束，字段值允许为null,not null非空约束,字段值不允许为null
+		默认约束：default当插入数据时,如果没有明确为字段赋值,则自动赋予默认值
+		外键约束：foreign key数据表的存储引擎只能为InnoDB,保持数据的一致性和唯一性
+9.SQL中的运算符
+	+：求两个数或表达式相加的和
+	-：求两个数或表达式相减的和
+	*：求两个数或表达式相乘的和
+	/：求两个数或表达式相加除和
+	%：求两个数或表达式相除的余数
+	and：两个条件都为真时才执行
+	or：只要一个条件为真就执行
+	not：取反向条件
+	=	等于
+	!=	不等于
+	IS NULL：是否为空
+	IS not NULL：是否不为空
+10.添加
+	语法：insert into 表名(字段一,字段二,字段三,......)values(值一,值二,值三,......);
+	注意：写值时候只有整型不用加单引号
+11.修改
+	语法：update 表名 set 字段一=修改后的值,字段二=修改后的值,字段三=修改后的值,...... where 修改条件;
+	注意:修改时候必须根据id修改
+12.删除
+	语法：delete from 表名 where 删除条件;
+	注意:删除时候必须根据id删除
+13.查询
+	语法：select * from 表名
+14.Order By排序语法
+	语法：select * from 表名 ORDER BY 字段1 DESC/ASC
+15.limit指定查询
+	语法：select * from 表名 字段 LIMIT 值一,值二;
+	注意：值一是前面留几条数据，值二是一共显示多少条数据
+16.MySQL中的内置函数
+	select now();获取当前时间的年月日时分秒
+	select curdate();获取当前时间的年月日
+	select curtime();获取当前时间的时分秒
+	select version();查看当前mysql版本
+17.模糊查询
+	语法：select * from 表名 where 字段名 like '查询内容';
+	注意：模糊查询提供了两个通配符“_”代表一个字符,“%”代表多个字符
+18.聚合函数
+	avg() 平均值
+	count() 总记录数,不包括null
+	max() 最大值 
+	min() 最小值
+	sum() 求和
+19.分组查询
+	语法：select 字段1,字段2 from 表名 group by 字段1,字段2 having 条件;
+	注意：having必须和group by一起使用
+20.内连接
+	必须会背：显示左表和右表中符合连接条件的数据
+	语法：select * from 表1 inner join 表2 on 外键=主键;
+21.左外连接
+	必须会背：显示左表全部数据和右表中符合连接条件的数据
+	语法：select * from 表1 left join 表2 on 外键=主键;	
+22.右外连接
+	必须会背：显示右表全部数据和左表中符合连接条件的数据
+	语法：select * from 表1 right join 表2 on 外键=主键;
+23.索引的分类
+	必须会背:
+		主键索引：主键是一种唯一性索引，他必须指定为PRIMARY KEY，每张表只能由一个主键
+		唯一索引：索引列的值只能出现一次，保证数据的唯一性，值可以为空
+		普通索引：基本的索引类型，值可以为空，没有那么多的限制
+		组合索引：多列值组成的一个索引，专门用来组合搜索（用的比较多）
+		全文索引：全文索引的类型为FULLTEXT，全文索引可以在char、varchar、text的类型上创建
+		外建索引：主要的作用是保持数据的完整性、一致性
+		索引都可以加快查询速度
+24.索引的优缺点
+	必须会背:
+		优点：
+			1.可以大大加快数据的查询速度，可以加速表和表之间的连接
+		缺点：
+			1.创建索引和维护索引要耗费时间，并且随着数据量的增加所耗费的时间也会增加
+			2.索引需要占用磁盘空间，除了数据表占数据空间之外，每一个索引还要占一定的物理空间
+			3.当对表中的数据进行增加、删除、修改等操作时，索引也会动态的维护，就会降低数据的维护速度。
+25.事务的特性
+	必须会背:
+		原子性:事务是一个完整性的操作，要么全部都执行，要么全部都不执行			
+		一致性:事务完成前后，数据必须保持完全一致的状态
+		隔离性:事务是相对独立的，一个事务对数据进行修改时，其他事务是不能修改的
+		持久性:事务完成后，它对于系统的影响是永久性的
+26.sql语句的执行顺序	
+	必须会背:
+		(1)from (3)join (2)on (4)where (5)group by (开始使用select中的别名，后面的语句中都可以使用)  (6)avg,sum.... (7)having (8)select (9)distinct (10)order by
